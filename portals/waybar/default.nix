@@ -13,13 +13,13 @@
 
       # --- Workspaces ---
       "hyprland/workspaces" = {
-        format = "{name}";
+        format = "{icon}";
         format-icons = {
           default = "";
           active = "";
           urgent = "";
         };
-        on-click = "hyprctl dispatch workspace {name}";
+        tooltip = true;
       };
 
       # --- Clock ---

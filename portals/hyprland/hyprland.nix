@@ -1,9 +1,10 @@
-{ config, pkgs, ... }: {
-  home.packages = with pkgs; [ swww ];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ hyprlandPlugins.hyprsplit ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    plugins = [ pkgs.hyprlandPlugins.hyprsplit ];
 
     settings = {
       input = {
@@ -103,6 +104,32 @@
     extraConfig = ''
       monitor = HDMI-A-1, 1920x1080, 1920x0, 1
       monitor = DP-1, 1920x1080, 0x0, 1
+
+
+      # in your hyprland config file:
+
+        plugin {
+            hyprsplit {
+                num_workspaces = 5
+                persistent_workspaces = true
+            }
+        }
+
+        bind = SUPER, 1, split:workspace, 1
+        bind = SUPER, 2, split:workspace, 2
+        bind = SUPER, 3, split:workspace, 3
+        bind = SUPER, 4, split:workspace, 4
+        bind = SUPER, 5, split:workspace, 5
+        bind = SUPER, 6, split:workspace, 6
+
+        bind = SUPER SHIFT, 1, split:movetoworkspacesilent, 1
+        bind = SUPER SHIFT, 2, split:movetoworkspacesilent, 2
+        bind = SUPER SHIFT, 3, split:movetoworkspacesilent, 3
+        bind = SUPER SHIFT, 4, split:movetoworkspacesilent, 4
+        bind = SUPER SHIFT, 5, split:movetoworkspacesilent, 5
+        bind = SUPER SHIFT, 6, split:movetoworkspacesilent, 6
+
+        bind = SUPER, D, split:swapactiveworkspaces, current +1
     '';
   };
 
