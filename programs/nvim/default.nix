@@ -1,0 +1,4 @@
+{ host, ... } :
+{
+	imports = [ ./nvim.nix ];
+}
