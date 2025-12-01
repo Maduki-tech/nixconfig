@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -10,11 +6,15 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        device = "/dev/nvme0n1";
+        useOSProber = true;
+      };
+    };
+  };
 
   networking.hostName = "uwu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -61,6 +61,24 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
+
+  # System fonts configuration
+  fonts = {
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.hack
+      nerd-fonts.fira-code
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "JetBrains Mono Nerd Font" ];
+        sansSerif = [ "JetBrains Mono Nerd Font" ];
+        serif = [ "JetBrains Mono Nerd Font" ];
+      };
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     neovim

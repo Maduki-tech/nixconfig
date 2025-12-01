@@ -1,3 +1,1 @@
-{ ... }: {
-	imports = [ ./nvim ./zsh ];
-}
+{ ... }: { imports = [ ./nvim ./zsh ./tmux ./rofi ]; }

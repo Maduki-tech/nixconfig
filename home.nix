@@ -14,10 +14,20 @@
       curl
       unzip
       ripgrep
+      killall
       claude-code
 
       nerd-fonts.jetbrains-mono
       nerd-fonts.hack
+      nerd-fonts.fira-code
+
+      # Icon themes for waybar and other applications
+      papirus-icon-theme
+      adwaita-icon-theme
+      font-awesome
+
+      noto-fonts
+      noto-fonts-color-emoji
 
       libnotify
       wl-clipboard # clipboard manager
@@ -29,9 +39,8 @@
       gcc
       statix
 
-      rofi
-      notion-app
-      notion-app-enhanced
+      discord
+      spotify
     ];
 
     stateVersion = "25.05";
@@ -52,6 +61,8 @@
     };
 
     zsh = { enable = true; };
+
+    lazygit = { enable = true; };
   };
 
   imports =

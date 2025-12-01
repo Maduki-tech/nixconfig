@@ -1,0 +1,151 @@
+/*******************************************************************************
+ * ROFI MODERN DARK THEME
+ * Matches Hyprland configuration with blur, rounded corners, and dark aesthetic
+ ******************************************************************************/
+
+* {
+    /* Color Palette - Dark theme with accent colors */
+    bg-color:             #1a1a1aee;
+    bg-alt-color:         #2a2a2aee;
+    fg-color:             #e0e0e0;
+    fg-alt-color:         #a0a0a0;
+    selected-bg-color:    #3a3a3aee;
+    selected-fg-color:    #ffffff;
+    border-color:         #404040;
+    accent-color:         #7aa2f7;
+    urgent-color:         #f7768e;
+
+    /* Base settings */
+    background-color:     transparent;
+    text-color:           @fg-color;
+    font:                 "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    transparency:         "real";
+    background-color:     @bg-color;
+    border:               2px;
+    border-color:         @border-color;
+    border-radius:        10px;
+    width:                800px;
+    padding:              0px;
+}
+
+mainbox {
+    background-color:     transparent;
+    children:             [ inputbar, listview ];
+    spacing:              0px;
+    padding:              0px;
+}
+
+inputbar {
+    background-color:     @bg-alt-color;
+    text-color:           @fg-color;
+    border:               0px 0px 2px 0px;
+    border-color:         @border-color;
+    border-radius:        10px 10px 0px 0px;
+    padding:              15px 20px;
+    spacing:              10px;
+    children:             [ prompt, entry ];
+}
+
+prompt {
+    background-color:     transparent;
+    text-color:           @accent-color;
+    font:                 "JetBrainsMono Nerd Font Bold 13";
+}
+
+entry {
+    background-color:     transparent;
+    text-color:           @fg-color;
+    placeholder:          "Search...";
+    placeholder-color:    @fg-alt-color;
+    cursor:               text;
+}
+
+listview {
+    background-color:     transparent;
+    padding:              10px;
+    spacing:              5px;
+    scrollbar:            false;
+    lines:                8;
+    cycle:                true;
+    dynamic:              true;
+    fixed-height:         true;
+}
+
+element {
+    background-color:     transparent;
+    text-color:           @fg-color;
+    border-radius:        8px;
+    padding:              12px 15px;
+    spacing:              10px;
+}
+
+element normal.normal {
+    background-color:     transparent;
+    text-color:           @fg-color;
+}
+
+element normal.urgent {
+    background-color:     @urgent-color;
+    text-color:           @fg-color;
+}
+
+element normal.active {
+    background-color:     transparent;
+    text-color:           @accent-color;
+}
+
+element selected.normal {
+    background-color:     @selected-bg-color;
+    text-color:           @selected-fg-color;
+}
+
+element selected.urgent {
+    background-color:     @urgent-color;
+    text-color:           @fg-color;
+}
+
+element selected.active {
+    background-color:     @selected-bg-color;
+    text-color:           @accent-color;
+}
+
+element-icon {
+    background-color:     transparent;
+    size:                 32px;
+    cursor:               pointer;
+}
+
+element-text {
+    background-color:     transparent;
+    text-color:           inherit;
+    cursor:               pointer;
+    vertical-align:       0.5;
+}
+
+/* Scrollbar - just in case */
+scrollbar {
+    width:                4px;
+    border:               0;
+    handle-color:         @border-color;
+    handle-width:         4px;
+    padding:              0;
+}
+
+/* Error message styling */
+error-message {
+    background-color:     @bg-color;
+    text-color:           @urgent-color;
+    border:               2px;
+    border-color:         @urgent-color;
+    border-radius:        10px;
+    padding:              20px;
+}
+
+textbox {
+    background-color:     transparent;
+    text-color:           inherit;
+    vertical-align:       0.5;
+}
