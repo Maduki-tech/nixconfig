@@ -22,15 +22,10 @@
 
       general = {
         "$mainMod" = "SUPER";
-        gaps_in = 5;
-        gaps_out = 20;
+        gaps_in = 6;
+        gaps_out = 8;
         border_size = 2;
-        # https://wiki.hypr.land/Configuring/Variables/#variable-types for info about colors
-        # col.active_border = "rgba (33 ccffee) rgba (00 ff99ee) 45 deg";
-        # col.inactive_border = "rgba (595959 aa)";
-        # Set to true enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false;
-        # Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
         allow_tearing = false;
         layout = "dwindle";
       };
@@ -62,9 +57,7 @@
       };
 
       decoration = {
-        rounding = 10;
-        active_opacity = 1.0;
-        inactive_opacity = 0.9;
+        rounding = 6;
         blur = {
           enabled = true;
           size = 5;
@@ -90,6 +83,7 @@
       windowrule = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "noblur,class:^(com.mitchellh.ghostty)$"
       ];
 
       master = {

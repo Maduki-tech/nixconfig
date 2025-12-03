@@ -32,6 +32,9 @@
     settings = {
       font-size = 18;
       font-family = "JetBrainsMono Nerd Font";
+      background-opacity = 0.8;
+      window-padding-x = 8;
+      window-padding-y = 8;
     };
   };
 }

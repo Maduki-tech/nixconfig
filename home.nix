@@ -41,6 +41,7 @@
 
       discord
       spotify
+      obsidian
     ];
 
     stateVersion = "25.05";

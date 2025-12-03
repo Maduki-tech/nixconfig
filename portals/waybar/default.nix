@@ -6,10 +6,61 @@
     settings = [{
       layer = "top";
       position = "top";
-      modules-left = [ "hyprland/workspaces" ];
-      modules-center = [ "custom/spotify" ];
+      spacing = 8;
+
+      modules-left =
+        [ "custom/logo" "cpu" "memory" "temperature" "custom/spotify" ];
+      modules-center = [ "hyprland/workspaces" ];
       modules-right =
-        [ "network" "bluetooth" "clock" "pulseaudio" "custom/system" ];
+        [ "network" "bluetooth" "clock" "pulseaudio" "custom/power" ];
+
+      # --- Custom Logo ---
+      "custom/logo" = {
+        format = "";
+        on-click = "ghostty -e nix-shell -p nix-info --run 'nix-info -m'";
+        tooltip = true;
+        tooltip-format = "NixOS Info";
+      };
+
+      # --- CPU ---
+      "cpu" = {
+        format = " {usage}%";
+        interval = 2;
+        tooltip = true;
+        tooltip-format = "CPU: {usage}%";
+      };
+
+      # --- Memory ---
+      "memory" = {
+        format = " {percentage}%";
+        interval = 2;
+        tooltip = true;
+        tooltip-format = "RAM: {used:0.1f}G / {total:0.1f}G";
+      };
+
+      # --- Temperature ---
+      "temperature" = {
+        thermal-zone = 2;
+        critical-threshold = 80;
+        format = "{icon} {temperatureC}°C";
+        format-icons = {
+          default = "🌡️";
+          critical = "🔥";
+        };
+        interval = 2;
+        tooltip = true;
+      };
+
+      # --- Spotify ---
+      "custom/spotify" = {
+        format = " {}";
+        exec = "playerctl metadata --format '{{ title }} - {{ artist }}'";
+        interval = 5;
+        on-click = "playerctl play-pause";
+        on-scroll-up = "playerctl next";
+        on-scroll-down = "playerctl previous";
+        tooltip = false;
+      };
 
       # --- Workspaces ---
       "hyprland/workspaces" = {
@@ -19,21 +70,57 @@
           active = "";
           urgent = "";
         };
+        persistent-workspaces = { "*" = 5; };
+        on-click = "activate";
+      };
+
+      # --- Network ---
+      "network" = {
+        format-wifi = "  {essid}";
+        format-ethernet = "󰈀 Connected";
+        format-disconnected = "󰤮 Offline";
         tooltip = true;
+        tooltip-format = ''
+          {ifname}: {ipaddr}
+          ↓ {bandwidthDownBytes} ↑ {bandwidthUpBytes}'';
+        on-click = "nm-connection-editor";
+        interval = 2;
+      };
+
+      # --- Bluetooth ---
+      "bluetooth" = {
+        format = "󰂯";
+        format-connected = "󰂯 {num_connections}";
+        format-disabled = "󰂲";
+        format-off = "󰂲";
+        on-click = "blueman-manager";
+        tooltip = true;
+        tooltip-format = "{controller_alias}	{controller_address}";
+        tooltip-format-connected = "{device_enumerate}";
+        tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
       };
 
       # --- Clock ---
       "clock" = {
-        format = " {:%H:%M  %d.%m}";
-        tooltip = false;
+        format = " {:%d.%m %a %H:%M}";
+        tooltip = true;
+        tooltip-format = ''
+          <big>{:%B %Y}</big>
+          <tt><small>{calendar}</small></tt>'';
       };
 
       # --- Pulseaudio (PipeWire-backed) ---
       "pulseaudio" = {
         format = "{icon} {volume}%";
-        format-muted = " muted";
+        format-muted = "󰝟 Muted";
         format-icons = {
-          default = [ "" "" "" ]; # dynamic based on volume level
+          headphone = "";
+          hands-free = "";
+          headset = "";
+          phone = "";
+          portable = "";
+          car = "";
+          default = [ "" "" "" ];
         };
         on-click = "pavucontrol";
         on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
@@ -43,120 +130,15 @@
         tooltip-format = "Volume: {volume}%";
       };
 
-      # --- Network ---
-      "network" = {
-        format-wifi = " {bandwidthDownBits} ↓↑ {bandwidthUpBits}";
-        format-ethernet = "󰈀 {bandwidthDownBits} ↓↑ {bandwidthUpBits}";
-        format-disconnected = "󰤮 Offline";
-        interval = 2;
-      };
-
-      # --- Bluetooth ---
-      "bluetooth" = {
-        format-connected = "󰂯 {num_connections}";
-        format-off = "󰂲";
-        on-click = "blueman-manager";
-        tooltip = true;
-      };
-
-      # --- System Menu ---
-      "custom/system" = {
-        format = "";
+      # --- Power Button ---
+      "custom/power" = {
+        format = "⏻";
         on-click = "wlogout";
         tooltip = true;
-      };
-
-      # --- Spotify ---
-      "custom/spotify" = {
-        format = " {}";
-        exec = "playerctl metadata --format '{{ title }} - {{ artist }}'";
-        interval = 5;
-        on-click = "playerctl play-pause";
-        tooltip = false;
+        tooltip-format = "Power Menu";
       };
     }];
 
-    # --- Style (Catppuccin Macchiato theme) ---
-    style = ''
-      @define-color base      #24273a;
-      @define-color surface0  #363a4f;
-      @define-color text      #cad3f5;
-      @define-color blue      #8aadf4;
-      @define-color mauve     #c6a0f6;
-      @define-color green     #a6da95;
-      @define-color yellow    #eed49f;
-      @define-color pink      #f5bde6;
-      @define-color red       #ed8796;
-
-      * {
-        font-family: JetBrains Mono Nerd Font, monospace;
-        font-size: 15px; /* Larger for better readability */
-        border: none;
-        border-radius: 6px; /* Light curvature inside modules */
-      }
-
-      window#waybar {
-        background: rgba(36, 39, 58, 0.6); /* Semi-transparent Catppuccin base */
-        color: @text;
-        border: none;
-        margin: 8px 16px; /* floating feel */
-        padding: 4px 12px;
-        border-radius: 0; /* straight corners for the overall bar */
-      }
-
-      #workspaces button {
-        padding: 0 8px;
-        color: @text;
-        background: transparent;
-        border-radius: 4px;
-      }
-
-      #workspaces button.active {
-        background-color: @surface0;
-        color: @mauve;
-      }
-
-      #workspaces button:hover {
-        background: rgba(198, 160, 246, 0.1);
-      }
-
-      #clock {
-        color: @blue;
-        padding: 0 12px;
-        font-weight: bold;
-      }
-
-      #network {
-        color: @yellow;
-        padding: 0 12px;
-      }
-
-      #bluetooth {
-        color: @green;
-        padding: 0 12px;
-      }
-
-      #custom-system {
-        color: @red;
-        padding: 0 12px;
-      }
-
-      #pulseaudio {
-          color: @blue;
-          padding: 0 12px;
-      }
-
-      #pulseaudio.muted {
-          color: @red;
-          opacity: 0.6;
-      }
-
-      #custom-spotify {
-        color: @pink;
-        padding: 0 12px;
-        font-style: italic;
-      }
-
-    '';
+    style = builtins.readFile ./style.css;
   };
 }

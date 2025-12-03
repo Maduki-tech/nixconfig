@@ -1,0 +1,149 @@
+/* Description: Custom Waybar style for a sleek and modern look */
+@define-color base #24273a;
+@define-color surface0 #363a4f;
+@define-color surface1 #494d64;
+@define-color text #cad3f5;
+@define-color blue #8aadf4;
+@define-color mauve #c6a0f6;
+@define-color green #a6da95;
+@define-color yellow #eed49f;
+@define-color pink #f5bde6;
+@define-color red #ed8796;
+@define-color peach #f5a97f;
+@define-color teal #8bd5ca;
+
+* {
+    font-family: JetBrains Mono Nerd Font, monospace;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+}
+
+window#waybar {
+    background: transparent;
+    color: @text;
+}
+
+/* Pill styling for all modules */
+#cpu,
+#memory,
+#temperature,
+#workspaces,
+#network,
+#bluetooth,
+#clock,
+#pulseaudio,
+#custom-logo,
+#custom-spotify,
+#custom-power {
+    background: @surface0;
+    padding: 6px 14px;
+    margin: 4px 0;
+    border-radius: 20px;
+    border: 2px solid @surface1;
+}
+
+#custom-logo {
+    margin-left: 8px;
+}
+
+/* Left side - System info */
+#cpu {
+    color: @blue;
+}
+
+#memory {
+    color: @green;
+}
+
+#temperature {
+    color: @peach;
+}
+
+#temperature.critical {
+    color: @red;
+}
+
+
+/* Center - Workspaces */
+#workspaces {
+    padding: 4px 8px;
+}
+
+#workspaces button {
+    padding: 2px 10px;
+    margin: 0 2px;
+    color: @text;
+    background: transparent;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @peach;
+}
+
+#workspaces button.urgent {
+    color: @base;
+}
+
+#workspaces button:hover {
+    color: @mauve;
+}
+
+/* Right side - Status modules */
+#network {
+    color: @yellow;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#bluetooth {
+    color: @teal;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @surface1;
+}
+
+#clock {
+    color: @blue;
+    font-weight: bold;
+}
+
+#pulseaudio {
+    color: @mauve;
+}
+
+#pulseaudio.muted {
+    color: @red;
+    opacity: 0.7;
+}
+
+#custom-power {
+    color: @red;
+    font-size: 16px;
+    padding: 4px 12px;
+    margin-right: 8px;
+}
+
+#custom-power:hover {
+    background: @red;
+    color: @base;
+}
+
+
+/* Tooltip styling */
+tooltip {
+    background: @surface0;
+    border: 2px solid @surface1;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+tooltip label {
+    color: @text;
+}

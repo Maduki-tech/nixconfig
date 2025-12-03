@@ -5,5 +5,6 @@
     ./hyprcursor.nix
     ./hyprpaper.nix
     ./startup.nix
+    ./animations.nix
   ];
 }
