@@ -8,7 +8,8 @@
       "$mainMod, B, exec, zen"
       "$mainMod, Q, killactive,"
       "$mainMod, M, exit,"
-      "$mainMod, Escape, exec, swaylock"
+      "$mainMod, L, exec, hyprlock"
+      "$mainMod, Escape, exec, wlogout"
 
       "$mainMod, V, togglefloating,"
       "$mainMod, F, fullscreen, 1"

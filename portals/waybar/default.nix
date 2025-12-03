@@ -114,13 +114,13 @@
         format = "{icon} {volume}%";
         format-muted = "󰝟 Muted";
         format-icons = {
-          headphone = "";
-          hands-free = "";
-          headset = "";
+          headphone = "󰋋";
+          hands-free = "󰍽";
+          headset = "󰋋";
           phone = "";
           portable = "";
           car = "";
-          default = [ "" "" "" ];
+          default = [ "󰕾" "󰖀" "󰖁" ];
         };
         on-click = "pavucontrol";
         on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
@@ -132,7 +132,7 @@
 
       # --- Power Button ---
       "custom/power" = {
-        format = "⏻";
+        format = "⏻ ";
         on-click = "wlogout";
         tooltip = true;
         tooltip-format = "Power Menu";

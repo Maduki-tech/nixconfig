@@ -31,6 +31,9 @@
 
       libnotify
       wl-clipboard # clipboard manager
+      wlogout # power menu for waybar
+      hyprlock # lock screen for hyprland
+      hypridle # idle management daemon
 
       bun
       nodejs_24
