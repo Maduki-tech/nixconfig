@@ -36,13 +36,11 @@
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = false;
         disable_hyprland_logo = true;
-        disable_splash_rendering = false;
+        disable_splash_rendering = true;
         enable_swallow = false;
         vfr = true; # Variable Frame Rate
         vrr =
-          2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
-        # Screen flashing to black momentarily or going black when app is fullscreen
-        # Try setting vrr to 0
+          1; # Variable Refresh Rate - changed from 2 to 1 for better performance
         force_default_wallpaper = 1;
 
         #  Application not responding (ANR) settings
@@ -58,13 +56,7 @@
 
       decoration = {
         rounding = 6;
-        blur = {
-          enabled = true;
-          size = 5;
-          passes = 3;
-          ignore_opacity = false;
-          new_optimizations = true;
-        };
+        blur = { enabled = false; };
         shadow = {
           enabled = true;
           range = 4;
@@ -78,7 +70,25 @@
         no_update_news = true;
       };
 
-      render = { direct_scanout = 0; };
+      animations = {
+        enabled = true;
+        bezier = [
+          "wind, 0.05, 0.9, 0.1, 1.05"
+          "winIn, 0.1, 1.1, 0.1, 1.1"
+          "winOut, 0.3, -0.3, 0, 1"
+          "liner, 1, 1, 1, 1"
+        ];
+        animation = [
+          "windows, 1, 6, wind, slide"
+          "windowsIn, 1, 6, winIn, slide"
+          "windowsOut, 1, 5, winOut, slide"
+          "windowsMove, 1, 5, wind, slide"
+          "border, 1, 1, liner"
+          "borderangle, 1, 30, liner, loop"
+          "fade, 1, 10, default"
+          "workspaces, 1, 5, wind"
+        ];
+      };
 
       windowrule = [
         "suppressevent maximize, class:.*"

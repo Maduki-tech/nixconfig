@@ -11,12 +11,13 @@
 
   wayland.windowManager.hyprland = {
     settings = {
+
       cursor = {
         enable_hyprcursor = true;
         sync_gsettings_theme = true;
         no_hardware_cursors = true;
         warp_on_change_workspace = 2;
-        no_warps = true;
+        no_warps = false;
       };
       # Export env so Hyprland & apps pick it up consistently
       env = [

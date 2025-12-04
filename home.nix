@@ -58,6 +58,7 @@
         email = "d.schlueter1011@gmail.com";
       };
     };
+    lazydocker = { enable = true; };
 
     gh = {
       enable = true;

@@ -42,7 +42,7 @@
     isNormalUser = true;
     description = "Maduki";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -109,6 +109,13 @@
       };
     };
     blueman.enable = true;
+  };
+
+  virtualisation = {
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
   };
 
   # BLUETOOTH
