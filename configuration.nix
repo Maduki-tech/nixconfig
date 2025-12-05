@@ -76,6 +76,7 @@
     vimPlugins.nvim-treesitter.withAllGrammars
     gh
     file
+    btop
   ];
   programs = {
 
