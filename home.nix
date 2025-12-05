@@ -39,7 +39,11 @@
       nodejs_24
       python314
       go
+      gopls
+      sqlc
+      go-migrate
       gcc
+      gnumake
       statix
 
       discord

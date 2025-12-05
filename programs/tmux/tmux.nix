@@ -56,8 +56,8 @@
 
       # Custom session scripts
       bind-key -r f run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessiongod.sh"
-      bind-key -r N run-shell "~/.config/tmux/scripts/tmux-sessiongod.sh ~/dotfile/nvim/nvim"
       bind-key -r i run-shell "tmux neww ~/.config/tmux/scripts/cht.sh"
+      bind-key -r N run-shell "~/.config/tmux/scripts/tmux-sessiongod.sh ~/etc/nixos"
 
       # Status bar
       set -g status-right-length 100

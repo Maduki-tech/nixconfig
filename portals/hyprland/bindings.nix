@@ -9,7 +9,10 @@
       "$mainMod, M, exit,"
       "$mainMod, L, exec, hyprlock"
       "$mainMod, Escape, exec, wlogout"
+      # Terminal UI's
       "$mainMod, E, exec, ghostty -e yazi"
+      "$mainMod, T, exec, ghostty -e btop"
+      "$mainMod, D, exec, ghostty -e lazydocker"
 
       "$mainMod, V, togglefloating,"
       "$mainMod, F, fullscreen, 1"

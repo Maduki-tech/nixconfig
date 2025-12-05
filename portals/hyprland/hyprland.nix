@@ -135,7 +135,7 @@
         bind = SUPER SHIFT, 5, split:movetoworkspacesilent, 5
         bind = SUPER SHIFT, 6, split:movetoworkspacesilent, 6
 
-        bind = SUPER, D, split:swapactiveworkspaces, current +1
+        bind = SUPER, S, split:swapactiveworkspaces, current +1
     '';
   };
 
