@@ -35,6 +35,7 @@
       background-opacity = 0.8;
       window-padding-x = 8;
       window-padding-y = 8;
+      confirm-close-surface = false;
     };
   };
 }

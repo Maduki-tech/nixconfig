@@ -1,5 +1,5 @@
 { ... }: {
   wayland.windowManager.hyprland.settings = {
-    exec-once = [ "hyprpaper" "waybar" "hypridle" ];
+    exec-once = [ "hyprpaper" "waybar" "hypridle" "mako" ];
   };
 }

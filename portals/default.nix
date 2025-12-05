@@ -1,1 +1,1 @@
-{...} : { imports = [ ./hyprland ./waybar ./wlogout ./hyprlock ./hypridle ];}
+{...} : { imports = [ ./hyprland ./waybar ./wlogout ./hyprlock ./hypridle ./mako ];}

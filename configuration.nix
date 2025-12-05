@@ -75,6 +75,7 @@
     luajitPackages.luarocks_bootstrap
     vimPlugins.nvim-treesitter.withAllGrammars
     gh
+    file
   ];
   programs = {
 

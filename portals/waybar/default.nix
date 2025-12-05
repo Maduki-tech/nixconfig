@@ -11,8 +11,15 @@
       modules-left =
         [ "custom/logo" "cpu" "memory" "temperature" "custom/spotify" ];
       modules-center = [ "hyprland/workspaces" ];
-      modules-right =
-        [ "network" "bluetooth" "clock" "pulseaudio" "custom/power" ];
+      modules-right = [
+        "hyprland/language"
+        "network"
+        "bluetooth"
+        "clock"
+        "pulseaudio"
+        "custom/caffeine"
+        "custom/power"
+      ];
 
       # --- Custom Logo ---
       "custom/logo" = {
@@ -128,6 +135,36 @@
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         tooltip = true;
         tooltip-format = "Volume: {volume}%";
+      };
+
+      # --- Keyboard Layout ---
+      "hyprland/language" = {
+        format = "{}";
+        format-en = "EN";
+        format-de = "DE";
+        keyboard-name = "zsa-technology-labs-moonlander-mark-i";
+        on-click = "hyprctl switchxkblayout all next";
+      };
+
+      # --- Caffeine (Idle Inhibitor) ---
+      "custom/caffeine" = {
+        format = "{}";
+        exec = "${pkgs.writeShellScript "caffeine-status" ''
+          if pgrep -x hypridle > /dev/null; then
+            echo '{"text": "󰅶", "class": "idle-on", "tooltip": "Idle &amp; lock enabled (click to disable)"};'
+          else
+            echo '{"text": "󰛊", "class": "idle-off", "tooltip": "Idle &amp; lock disabled (click to enable)"};'
+          fi
+        ''}";
+        return-type = "json";
+        interval = 5;
+        on-click = "${pkgs.writeShellScript "caffeine-toggle" ''
+          if pgrep -x hypridle > /dev/null; then
+            pkill hypridle && ${pkgs.libnotify}/bin/notify-send "Caffeine" "Desktop will stay awake" -i preferences-desktop-screensaver
+          else
+            hypridle & ${pkgs.libnotify}/bin/notify-send "Caffeine" "Idle & lock re-enabled" -i preferences-desktop-screensaver
+          fi
+        ''}";
       };
 
       # --- Power Button ---

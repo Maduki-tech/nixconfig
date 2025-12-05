@@ -33,8 +33,10 @@ window#waybar {
 #bluetooth,
 #clock,
 #pulseaudio,
+#language,
 #custom-logo,
 #custom-spotify,
+#custom-caffeine,
 #custom-power {
     background: @surface0;
     padding: 6px 14px;
@@ -92,6 +94,11 @@ window#waybar {
 }
 
 /* Right side - Status modules */
+#language {
+    color: @pink;
+    font-weight: bold;
+}
+
 #network {
     color: @yellow;
 }
@@ -121,6 +128,23 @@ window#waybar {
 #pulseaudio.muted {
     color: @red;
     opacity: 0.7;
+}
+
+#custom-caffeine {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#custom-caffeine.idle-on {
+    color: @green;
+}
+
+#custom-caffeine.idle-off {
+    color: @yellow;
+}
+
+#custom-caffeine:hover {
+    background: @surface1;
 }
 
 #custom-power {
