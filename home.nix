@@ -1,6 +1,12 @@
 { inputs, pkgs, ... }:
 
-{
+let
+  # Override go-migrate to exclude Snowflake driver which causes CA cert parsing panic
+  # Adjust the tags array to match your database (e.g., "postgres", "mysql", "sqlite3", "pgx")
+  go-migrate-fixed = pkgs.go-migrate.overrideAttrs (oldAttrs: {
+    tags = [ "postgres" ]; # Change this to your database type
+  });
+in {
   home = {
     username = "maduki";
     homeDirectory = "/home/maduki";
@@ -8,7 +14,6 @@
 
     packages = with pkgs; [
       fzf
-      cargo
       spotify
       wget
       curl
@@ -35,20 +40,35 @@
       hyprlock # lock screen for hyprland
       hypridle # idle management daemon
 
+      #JS
       bun
       nodejs_24
+
       python314
+      # GO
       go
       gopls
       sqlc
-      go-migrate
+      go-migrate-fixed
+      # C
       gcc
       gnumake
       statix
+      # Rust
+      cargo
+      rustc
+      rust-analyzer
+      clippy
+      rustfmt
 
+      # Zig
+      zig
+
+      # Programs
       discord
       spotify
       obsidian
+      ticktick
     ];
 
     stateVersion = "25.05";
