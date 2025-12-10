@@ -13,7 +13,6 @@
       modules-center = [ "hyprland/workspaces" ];
       modules-right = [
         "hyprland/language"
-        "network"
         "bluetooth"
         "clock"
         "pulseaudio"
@@ -109,7 +108,7 @@
 
       # --- Clock ---
       "clock" = {
-        format = " {:%d.%m %a %H:%M}";
+        format = " {:%d.%m %H:%M}";
         tooltip = true;
         tooltip-format = ''
           <big>{:%B %Y}</big>

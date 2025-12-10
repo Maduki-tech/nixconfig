@@ -3,20 +3,19 @@
 ## Critical (Implement First)
 
 - [x] Notification daemon (mako or dunst)
-- [ ] Screenshot tools (grim + slurp)
 - [x] File manager -> Yazi
-- [ ] Polkit agent (polkit-gnome)
-- [ ] Pavucontrol (audio GUI)
-- [ ] Playerctl (for waybar Spotify module)
+- [ ] Setup Laptop Display
+- [ ] Brightness control (brightnessctl)
 
 ### High Priority
 
-- [ ] Clipboard history (cliphist)
-- [ ] Image viewer (imv)
+- [ ] Screenshot tools (grim + slurp)
+- [ ] Remove Spotify
+- [ ] Polkit agent (polkit-gnome) TODO WHAT IS THIS?
 - [ ] PDF viewer (zathura)
+- [ ] Pavucontrol (audio GUI)
 - [ ] Color picker (hyprpicker)
-- [ ] System monitor (btop)
-- [ ] Brightness control (brightnessctl)
+- [x] System monitor (btop)
 
 ### Medium Priority
 

@@ -39,6 +39,7 @@ in {
       wlogout # power menu for waybar
       hyprlock # lock screen for hyprland
       hypridle # idle management daemon
+    nixfmt
 
       #JS
       bun
@@ -71,7 +72,7 @@ in {
       ticktick
     ];
 
-    stateVersion = "25.05";
+    stateVersion = "25.11";
   };
 
   programs = {
