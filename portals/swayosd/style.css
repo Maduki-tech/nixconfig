@@ -1,0 +1,61 @@
+/* SwayOSD - Catppuccin Mocha Theme */
+/* Matches existing mako notification styling */
+
+window {
+  background: alpha(#181825, 0.87); /* Surface0 with transparency */
+  border: 2px solid #89b4fa; /* Blue */
+  border-radius: 12px;
+  padding: 0;
+}
+
+#container {
+  padding: 15px;
+  margin: 0;
+}
+
+/* Icon styling */
+image {
+  color: #cdd6f4; /* Text */
+  margin: 0 10px 0 0;
+}
+
+/* Label/text styling */
+label {
+  color: #cdd6f4; /* Text */
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* Progress bar container */
+progressbar {
+  min-width: 250px;
+  min-height: 8px;
+  border-radius: 8px;
+  background: #313244; /* Surface1 */
+  margin: 10px 0 0 0;
+}
+
+/* Progress bar trough (background) */
+trough {
+  min-height: 8px;
+  border-radius: 8px;
+  background: #313244; /* Surface1 */
+}
+
+/* Progress bar fill */
+progress {
+  min-height: 8px;
+  border-radius: 8px;
+  background: #89b4fa; /* Blue */
+}
+
+/* Additional styling for different widget types */
+.container {
+  padding: 15px;
+}
+
+.capslock {
+  color: #f38ba8; /* Red for caps lock indicator */
+}

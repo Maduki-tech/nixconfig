@@ -1,5 +1,9 @@
-{ host, pkgs, ... }: {
-  home.packages = with pkgs; [ wl-clipboard playerctl ];
+{ host, pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    wl-clipboard
+    playerctl
+  ];
   wayland.windowManager.hyprland.settings = {
     bind = [
       "$mainMod, Return, exec, ghostty"
@@ -16,9 +20,7 @@
 
       "$mainMod, V, togglefloating,"
       "$mainMod, F, fullscreen, 1"
-
-      # Wallpaper controls
-      "$mainMod, W, exec, wallsetter"
+      "$mainMod, F11, fullscreen, "
 
       # Keyboard layout switching
       "$mainMod, K, exec, hyprctl switchxkblayout all next"
@@ -30,17 +32,23 @@
       "$mainMod, down, movefocus, d"
     ];
 
-    bindm =
-      [ "$mainMod, mouse:272, movewindow" "$mainMod, mouse:273, resizewindow" ];
+    bindm = [
+      "$mainMod, mouse:272, movewindow"
+      "$mainMod, mouse:273, resizewindow"
+    ];
+
+    gesture = [
+      "3, horizontal, workspace"
+    ];
 
     bindel = [
-      # Laptop multimedia keys for volume and LCD brightness
-      ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-      ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-      ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+      # Laptop multimedia keys for volume and LCD brightness (with SwayOSD)
+      ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+      ",XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+      ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+      ",XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
+      ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+      ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
 
       # Requires playerctl
       ", XF86AudioNext, exec, playerctl next"

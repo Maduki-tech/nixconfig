@@ -37,6 +37,7 @@ window#waybar {
 #custom-logo,
 #custom-spotify,
 #custom-caffeine,
+#battery,
 #custom-power {
     background: @surface0;
     padding: 6px 14px;
@@ -145,6 +146,10 @@ window#waybar {
 
 #custom-caffeine:hover {
     background: @surface1;
+}
+
+#battery {
+    color: @yellow;
 }
 
 #custom-power {

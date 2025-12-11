@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ hyprlandPlugins.hyprsplit ];
 
   wayland.windowManager.hyprland = {
@@ -7,6 +8,7 @@
     plugins = [ pkgs.hyprlandPlugins.hyprsplit ];
 
     settings = {
+
       input = {
         kb_layout = "us,de";
         kb_options = "grp:alt_shift_toggle";
@@ -19,6 +21,15 @@
           natural_scroll = true;
           disable_while_typing = true;
           scroll_factor = 0.2;
+          tap-to-click = true;
+          tap-and-drag = true;
+          drag_lock = false;
+          middle_button_emulation = true;
+          clickfinger_behavior = true;
+        };
+        touchdevice = {
+          output = "eDP-1";
+          enabled = true;
         };
       };
 
@@ -41,8 +52,7 @@
         disable_splash_rendering = true;
         enable_swallow = false;
         vfr = true; # Variable Frame Rate
-        vrr =
-          1; # Variable Refresh Rate - changed from 2 to 1 for better performance
+        vrr = 1; # Variable Refresh Rate - changed from 2 to 1 for better performance
         force_default_wallpaper = 1;
 
         #  Application not responding (ANR) settings
@@ -58,7 +68,9 @@
 
       decoration = {
         rounding = 6;
-        blur = { enabled = false; };
+        blur = {
+          enabled = false;
+        };
         shadow = {
           enabled = true;
           range = 4;
@@ -105,11 +117,18 @@
       };
 
       # Ensure Xwayland windows render at integer scale; compositor scales them
-      xwayland = { force_zero_scaling = true; };
+      xwayland = {
+        force_zero_scaling = true;
+      };
     };
+
     extraConfig = ''
-      monitor = HDMI-A-1, 1920x1080, 1920x0, 1
-      monitor = DP-1, 1920x1080, 0x0, 1
+      # Lenovo Yoga Pro 7 internal display
+      monitor = eDP-1, 2944x1840@90.00Hz, 0x0, 1.6
+
+      # External monitors (auto-detect when connected)
+      monitor = , preferred, auto, 1
+
 
 
       # in your hyprland config file:

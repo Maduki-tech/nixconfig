@@ -6,5 +6,6 @@
     ./hyprpaper.nix
     ./startup.nix
     ./animations.nix
+    ./environment.nix
   ];
 }

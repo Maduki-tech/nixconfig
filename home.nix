@@ -6,7 +6,8 @@ let
   go-migrate-fixed = pkgs.go-migrate.overrideAttrs (oldAttrs: {
     tags = [ "postgres" ]; # Change this to your database type
   });
-in {
+in
+{
   home = {
     username = "maduki";
     homeDirectory = "/home/maduki";
@@ -39,7 +40,8 @@ in {
       wlogout # power menu for waybar
       hyprlock # lock screen for hyprland
       hypridle # idle management daemon
-    nixfmt
+      hyprsunset # screen temperature adjustment for hyprland
+      nixfmt
 
       #JS
       bun
@@ -83,22 +85,33 @@ in {
         email = "d.schlueter1011@gmail.com";
       };
     };
-    lazydocker = { enable = true; };
+    lazydocker = {
+      enable = true;
+    };
 
     gh = {
       enable = true;
-      settings = { git_protocol = "ssh"; };
+      settings = {
+        git_protocol = "ssh";
+      };
     };
 
-    zsh = { enable = true; };
+    zsh = {
+      enable = true;
+    };
 
-    lazygit = { enable = true; };
+    lazygit = {
+      enable = true;
+    };
   };
 
-  imports =
-    [ ./programs ./portals ./theme inputs.zen-browser.homeModules.beta ];
+  imports = [
+    ./programs
+    ./portals
+    ./theme
+    inputs.zen-browser.homeModules.beta
+  ];
   programs.zen-browser.enable = true;
 
   fonts.fontconfig.enable = true;
 }
-
