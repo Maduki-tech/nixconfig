@@ -11,9 +11,16 @@ home.nix                    # Home Manager entrypoint — imports home/ modules.
 hardware-configuration.nix  # Auto-generated hardware scan. Do not edit manually.
 system/                     # NixOS system-level modules (one file per topic).
 │   desktop.nix             # Hyprland, XWayland, display-related.
+│   shell.nix               # Zsh as system login shell + default shell for maduki.
 home/                       # Home Manager user-level modules (one file per topic).
-    git.nix                 # Git config.
+    git.nix                 # Git + gh CLI config.
+    zsh.nix                 # Zsh with autosuggestions and syntax highlighting.
+    ghostty.nix             # Ghostty terminal.
+    hyprland.nix            # Hyprland HM session + points xdg.configFile at hyprland.lua.
+    hyprland.lua            # Actual Hyprland Lua config (Hyprland reads .lua over .conf).
 ```
+
+**Important — Hyprland uses Lua config:** Hyprland reads `hyprland.lua` and ignores `hyprland.conf` when both exist. Home Manager's `wayland.windowManager.hyprland.settings` generates `.conf` only, so it has no effect. All Hyprland settings must go in `home/hyprland.lua`, managed via `xdg.configFile`.
 
 ## Where Things Go
 
