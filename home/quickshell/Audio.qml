@@ -7,10 +7,10 @@ Item {
     id: root
 
     PwObjectTracker {
-        objects: [PipeWire.defaultAudioSink]
+        objects: [Pipewire.defaultAudioSink]
     }
 
-    readonly property var sink: PipeWire.defaultAudioSink
+    readonly property var sink: Pipewire.defaultAudioSink
     readonly property real volume: sink?.audio?.volume ?? 0
     readonly property bool muted: sink?.audio?.muted ?? false
 

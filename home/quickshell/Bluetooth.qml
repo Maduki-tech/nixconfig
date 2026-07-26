@@ -11,6 +11,13 @@ Item {
     implicitHeight: 28
 
     Process {
+        id: btToggleProc
+        property string btCmd: "power off"
+        command: ["sh", "-c", "bluetoothctl " + btToggleProc.btCmd]
+        onRunningChanged: if (!running) btProc.running = true
+    }
+
+    Process {
         id: btProc
         command: ["sh", "-c",
             "POWERED=$(bluetoothctl show 2>/dev/null | awk '/Powered:/{print $2}'); " +
@@ -63,11 +70,8 @@ Item {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            const cmd = root.powered ? "power off" : "power on"
-            Process {
-                command: ["sh", "-c", "bluetoothctl " + cmd]
-                running: true
-            }
+            btToggleProc.btCmd = root.powered ? "power off" : "power on"
+            btToggleProc.running = true
             root.powered = !root.powered
         }
     }

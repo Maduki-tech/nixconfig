@@ -12,7 +12,7 @@ PanelWindow {
         right: true
     }
     exclusiveZone: height
-    height: 40
+    implicitHeight: 40
     color: "transparent"
 
     // Background

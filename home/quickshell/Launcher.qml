@@ -2,17 +2,18 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
-import Quickshell.Wayland
 import Quickshell.Io
+import Quickshell.Wayland._WlrLayerShell
 
 PanelWindow {
     id: root
     signal close()
 
     anchors { top: true; bottom: true; left: true; right: true }
-    WlrLayerShell.layer: WlrLayerShell.Overlay
-    WlrLayerShell.keyboardFocus: WlrLayerShell.Exclusive
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     color: Qt.rgba(0, 0, 0, 0.55)
 
@@ -70,8 +71,6 @@ PanelWindow {
             searchField.forceActiveFocus()
         }
     }
-
-    Keys.onEscapePressed: close()
 
     // Dim overlay — click outside to close
     MouseArea {
@@ -197,7 +196,7 @@ PanelWindow {
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
                             onClicked: root.launch(appItem.modelData.appId)
-                            onContainsMouse: appItem.ListView.view.currentIndex = appItem.index
+                            onEntered: appItem.ListView.view.currentIndex = appItem.index
                         }
                     }
                 }

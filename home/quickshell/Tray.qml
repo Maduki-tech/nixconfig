@@ -45,14 +45,8 @@ RowLayout {
                 onClicked: mouse => {
                     if (mouse.button === Qt.LeftButton)
                         trayItem.modelData.activate()
-                    else if (mouse.button === Qt.RightButton && trayItem.modelData.menu !== null)
-                        trayItem.modelData.menu.open(mouse.x, mouse.y)
                 }
             }
-
-            ToolTip.visible: trayMouse.containsMouse && trayItem.modelData.tooltipTitle !== ""
-            ToolTip.text: trayItem.modelData.tooltipTitle
-            ToolTip.delay: 500
         }
     }
 }

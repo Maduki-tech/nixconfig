@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Wayland
+import Quickshell.Wayland._WlrLayerShell
 import Quickshell.Services.Notifications
 
 Item {
@@ -32,12 +32,12 @@ Item {
             right: true
         }
 
-        width: 320
-        height: notifCol.implicitHeight + 16
+        implicitWidth: 320
+        implicitHeight: notifCol.implicitHeight + 16
         color: "transparent"
 
-        WlrLayerShell.layer: WlrLayerShell.Overlay
-        WlrLayerShell.keyboardFocus: WlrLayerShell.None
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
         Column {
             id: notifCol
