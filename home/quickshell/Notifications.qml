@@ -52,12 +52,17 @@ Item {
             spacing: 6
 
             Repeater {
-                model: root.notifs
+                model: root.notifs.length
 
                 delegate: NotificationCard {
-                    required property var modelData
-                    notification: modelData
+                    required property int index
+                    notification: root.notifs[index]
                     width: notifCol.width
+                    onCloseRequested: {
+                        const notif = root.notifs[index]
+                        root.notifs = root.notifs.filter(n => n !== notif)
+                        notif?.expire()
+                    }
                 }
             }
         }

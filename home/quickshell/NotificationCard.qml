@@ -4,6 +4,7 @@ import QtQuick.Layouts
 Rectangle {
     id: card
 
+    signal closeRequested()
     property var notification: null
 
     radius: 10
@@ -45,13 +46,12 @@ Rectangle {
             }
 
             Text {
-                text: card.notification?.summary ?? ""
+                text: card.notification?.summary || card.notification?.appName || "Notification"
                 color: "#cdd6f4"
                 font.pixelSize: 12
                 font.bold: true
                 wrapMode: Text.WordWrap
                 width: parent.width
-                visible: text !== ""
             }
 
             Text {
@@ -84,7 +84,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: card.notification?.expire()
+                onClicked: closeRequested()
             }
         }
     }
@@ -92,7 +92,7 @@ Rectangle {
     Timer {
         interval: card.notification?.urgency === 2 ? 10000 : 5000
         running: card.notification !== null
-        onTriggered: card.notification?.expire()
+        onTriggered: closeRequested()
     }
 
     NumberAnimation on opacity {

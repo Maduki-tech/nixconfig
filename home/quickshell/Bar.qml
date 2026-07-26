@@ -5,6 +5,7 @@ import Quickshell
 PanelWindow {
     id: bar
     signal launcherToggled()
+    signal btToggled()
 
     anchors {
         top: true
@@ -97,7 +98,9 @@ PanelWindow {
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 
-        Bluetooth {}
+        Bluetooth {
+            onClicked: bar.btToggled()
+        }
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 
