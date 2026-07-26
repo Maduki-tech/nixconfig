@@ -5,6 +5,7 @@
     ./home/git.nix
     ./home/zsh.nix
     ./home/ghostty.nix
+    ./home/hyprland.nix
   ];
 
   home.username = "maduki";
