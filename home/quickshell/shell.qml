@@ -4,6 +4,7 @@ import Quickshell.Io
 ShellRoot {
     property bool launcherOpen: false
     property bool btMenuOpen: false
+    property bool batMenuOpen: false
 
     IpcHandler {
         target: "launcher"
@@ -12,9 +13,16 @@ ShellRoot {
         function close()  { launcherOpen = false }
     }
 
-    Bar {
-        onLauncherToggled: launcherOpen = !launcherOpen
-        onBtToggled: btMenuOpen = !btMenuOpen
+    Variants {
+        model: Quickshell.screens
+
+        Bar {
+            required property var modelData
+            screen: modelData
+            onLauncherToggled: launcherOpen = !launcherOpen
+            onBtToggled: btMenuOpen = !btMenuOpen
+            onBatToggled: batMenuOpen = !batMenuOpen
+        }
     }
 
     Launcher {
@@ -25,6 +33,11 @@ ShellRoot {
     BluetoothMenu {
         visible: btMenuOpen
         onClose: btMenuOpen = false
+    }
+
+    BatteryMenu {
+        visible: batMenuOpen
+        onClose: batMenuOpen = false
     }
 
     Notifications {}

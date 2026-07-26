@@ -8,6 +8,10 @@
     ./home/hyprland.nix
     ./home/quickshell.nix
     ./home/nvim.nix
+    ./home/tmux.nix
+    ./home/scripts.nix
+    ./home/apps.nix
+    ./home/theme.nix
   ];
 
   home.username = "maduki";

@@ -6,6 +6,7 @@ PanelWindow {
     id: bar
     signal launcherToggled()
     signal btToggled()
+    signal batToggled()
 
     anchors {
         top: true
@@ -87,6 +88,12 @@ PanelWindow {
         spacing: 4
 
         Brightness {}
+
+        Rectangle { width: 1; height: 20; color: "#313244" }
+
+        Battery {
+            onClicked: bar.batToggled()
+        }
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 

@@ -10,6 +10,8 @@
     ./system/desktop.nix
     ./system/shell.nix
     ./system/nix-ld.nix
+    ./system/power.nix
+    ./system/logind.nix
   ];
 
   # Bootloader.
