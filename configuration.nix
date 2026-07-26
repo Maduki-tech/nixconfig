@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ./system/desktop.nix
     ./system/shell.nix
+    ./system/nix-ld.nix
   ];
 
   # Bootloader.
@@ -75,7 +76,6 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-neovim
 kitty
 firefox
 claude-code

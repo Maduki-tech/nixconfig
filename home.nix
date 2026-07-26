@@ -7,6 +7,7 @@
     ./home/ghostty.nix
     ./home/hyprland.nix
     ./home/quickshell.nix
+    ./home/nvim.nix
   ];
 
   home.username = "maduki";
