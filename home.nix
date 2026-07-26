@@ -6,6 +6,7 @@
     ./home/zsh.nix
     ./home/ghostty.nix
     ./home/hyprland.nix
+    ./home/quickshell.nix
   ];
 
   home.username = "maduki";
