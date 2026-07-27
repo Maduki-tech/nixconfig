@@ -70,7 +70,7 @@ PanelWindow {
             }
         }
 
-        Workspaces {}
+        Workspaces { screen: bar.screen }
     }
 
     // Center: clock

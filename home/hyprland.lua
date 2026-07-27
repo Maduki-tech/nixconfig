@@ -41,6 +41,21 @@ hl.monitor(internalMonitorSettings)
 hl.monitor({ output = "DP-8", mode = "1920x1080", position = "1920x0", scale = 1 })
 hl.monitor({ output = "DP-9", mode = "1920x1080", position = "0x0", scale = 1 })
 
+------------------------
+---- HYPRSPLIT ----------
+------------------------
+
+-- Independent per-monitor workspaces (dwm/awesome-style), replacing Hyprland's
+-- default global workspace numbering. See https://github.com/shezdy/hyprsplit
+local hs = require("hyprsplit")
+
+hs.config({ num_workspaces = 5, persistent_workspaces = true })
+
+-- Pin ranges to physical outputs rather than connector enumeration order, so
+-- the split stays stable across dock/undock and lid-close/open (which add and
+-- remove eDP-1 at runtime, see below): eDP-1 -> 1-5, DP-8 -> 6-10, DP-9 -> 11-15.
+hs.monitor_priority({ internalMonitor, "DP-8", "DP-9" })
+
 ----------------------------------
 ---- LID SWITCH / DOCK BEHAVIOR ----
 ----------------------------------
@@ -134,6 +149,18 @@ hl.env("HYPRCURSOR_THEME", "macOS")
 ---- LOOK AND FEEL ----
 -----------------------
 
+-- Border/shadow colors come from the active theme (~/.config/hypr/theme.lua,
+-- written by theme-set). Falls back to a fixed default until a theme has
+-- been picked at least once.
+local ok, theme = pcall(require, "theme")
+if not ok then
+	theme = {
+		active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+		inactive_border = "rgba(595959aa)",
+		shadow = 0xee1a1a1a,
+	}
+end
+
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
@@ -143,8 +170,8 @@ hl.config({
 		border_size = 2,
 
 		col = {
-			active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-			inactive_border = "rgba(595959aa)",
+			active_border = theme.active_border,
+			inactive_border = theme.inactive_border,
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -168,7 +195,7 @@ hl.config({
 			enabled = true,
 			range = 4,
 			render_power = 3,
-			color = 0xee1a1a1a,
+			color = theme.shadow,
 		},
 
 		blur = {
@@ -331,19 +358,21 @@ hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
+-- hs.dsp.focus/window.move resolve "1".."10" relative to the current monitor's
+-- own workspace range, so the same keys give independent workspaces per screen.
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0
-	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	hl.bind(mainMod .. " + " .. key, hs.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hs.dsp.window.move({ workspace = i }))
 end
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
--- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+-- Scroll through existing workspaces (on the current monitor) with mainMod + scroll
+hl.bind(mainMod .. " + mouse_down", hs.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_up", hs.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

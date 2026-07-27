@@ -31,17 +31,26 @@ PanelWindow {
         root.currentWallpaper = path
         setProc.path = path
         setProc.running = true
+
+        // Wallpapers directly in Wallpapers/ have no theme mapping.
+        // Wallpapers under Wallpapers/<theme>/<file> switch to <theme>.
+        const parts = path.split("/")
+        const theme = parts.length >= 2 ? parts[parts.length - 2] : ""
+        if (theme !== "" && theme !== "Wallpapers") {
+            themeProc.theme = theme
+            themeProc.running = true
+        }
     }
 
     function openFolder() {
         openProc.running = true
     }
 
-    // ── List images in ~/Pictures/Wallpapers ────────────────────────
+    // ── List images directly in Wallpapers/ and in Wallpapers/<theme>/ ──
     Process {
         id: listProc
         command: ["sh", "-c",
-            "find \"$HOME/Pictures/Wallpapers\" -maxdepth 1 -type f " +
+            "find \"$HOME/Pictures/Wallpapers\" -mindepth 1 -maxdepth 2 -type f " +
             "\\( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.bmp' -o -iname '*.gif' \\) " +
             "2>/dev/null | sort"]
         running: false
@@ -82,6 +91,13 @@ PanelWindow {
         id: openProc
         command: ["sh", "-c",
             "xdg-open \"$HOME/Pictures/Wallpapers\" >/dev/null 2>&1 &"]
+    }
+
+    // ── Apply the theme mapped to the wallpaper's parent folder ─────
+    Process {
+        id: themeProc
+        property string theme: ""
+        command: ["theme-set", themeProc.theme]
     }
 
     onVisibleChanged: if (visible) root.refresh()
@@ -175,7 +191,7 @@ PanelWindow {
                         Layout.fillWidth: true
                         Layout.topMargin: 24
                         visible: root.images.length === 0
-                        text: "No images found in ~/Pictures/Wallpapers.\nAdd some pictures there and reopen this menu."
+                        text: "No images found in ~/Pictures/Wallpapers/.\nAdd pictures there, or into a ~/Pictures/Wallpapers/<theme>/ subfolder to auto-switch themes."
                         color: "#6c7086"
                         font.pixelSize: 12
                         horizontalAlignment: Text.AlignHCenter

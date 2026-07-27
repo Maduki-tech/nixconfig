@@ -13,6 +13,7 @@
     ./system/nix-ld.nix
     ./system/power.nix
     ./system/logind.nix
+    ./system/docker.nix
   ];
 
   # Bootloader.

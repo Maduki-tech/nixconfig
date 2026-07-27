@@ -13,6 +13,7 @@
         "$git_branch"
         "$git_status"
         "$nodejs"
+        "$bun"
         "$python"
         "$rust"
         "$golang"
@@ -43,6 +44,12 @@
       nodejs = {
         symbol = " ";
         format = "[$symbol($version )]($style)";
+      };
+
+      bun = {
+        symbol = "🥟 ";
+        format = "[$symbol($version )]($style)";
+        style = "bold red";
       };
 
       python = {

@@ -4,6 +4,7 @@
   imports = [
     ./home/git.nix
     ./home/zsh.nix
+    ./home/direnv.nix
     ./home/starship.nix
     ./home/ghostty.nix
     ./home/hyprland.nix
@@ -13,6 +14,7 @@
     ./home/scripts.nix
     ./home/apps.nix
     ./home/theme.nix
+    ./home/theming
   ];
 
   home.username = "maduki";
