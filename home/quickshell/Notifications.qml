@@ -16,6 +16,7 @@ Item {
         keepOnReload: true
 
         onNotification: notif => {
+            notif.tracked = true
             root.notifs = [...root.notifs, notif]
             notif.closed.connect(() => {
                 root.notifs = root.notifs.filter(n => n !== notif)
