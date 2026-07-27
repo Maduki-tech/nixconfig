@@ -4,6 +4,8 @@
     quickshell
     brightnessctl
     gtk3
+    grim
+    wl-clipboard
   ];
 
   xdg.configFile."quickshell" = {
