@@ -91,4 +91,6 @@ ShellRoot {
     }
 
     Notifications {}
+
+    Osd {}
 }
