@@ -8,6 +8,7 @@ PanelWindow {
     signal btToggled()
     signal batToggled()
     signal netToggled()
+    signal wallpaperToggled()
 
     anchors {
         top: true

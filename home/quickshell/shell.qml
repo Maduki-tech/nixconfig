@@ -6,6 +6,7 @@ ShellRoot {
     property bool btMenuOpen: false
     property bool batMenuOpen: false
     property bool netMenuOpen: false
+    property bool wallpaperMenuOpen: false
     property bool screenshotActive: false
 
     IpcHandler {
@@ -13,6 +14,13 @@ ShellRoot {
         function toggle() { launcherOpen = !launcherOpen }
         function open()   { launcherOpen = true }
         function close()  { launcherOpen = false }
+    }
+
+    IpcHandler {
+        target: "wallpaper"
+        function toggle() { wallpaperMenuOpen = !wallpaperMenuOpen }
+        function open()   { wallpaperMenuOpen = true }
+        function close()  { wallpaperMenuOpen = false }
     }
 
     IpcHandler {
@@ -42,6 +50,7 @@ ShellRoot {
             onBtToggled: btMenuOpen = !btMenuOpen
             onBatToggled: batMenuOpen = !batMenuOpen
             onNetToggled: netMenuOpen = !netMenuOpen
+            onWallpaperToggled: wallpaperMenuOpen = !wallpaperMenuOpen
         }
     }
 
@@ -74,6 +83,11 @@ ShellRoot {
     NetworkMenu {
         visible: netMenuOpen
         onClose: netMenuOpen = false
+    }
+
+    WallpaperMenu {
+        visible: wallpaperMenuOpen
+        onClose: wallpaperMenuOpen = false
     }
 
     Notifications {}

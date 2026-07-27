@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.Services.UPower
 import Quickshell.Wayland._WlrLayerShell
 
@@ -20,12 +21,74 @@ PanelWindow {
     implicitHeight: card.implicitHeight
     color: "transparent"
 
-    onVisibleChanged: if (visible) focusGrab.active = true
+    onVisibleChanged: {
+        if (visible) {
+            focusGrab.active = true
+            root.refreshProfiles()
+        }
+    }
 
     HyprlandFocusGrab {
         id: focusGrab
         windows: [root]
         onCleared: root.close()
+    }
+
+    // ── Power profiles (power-profiles-daemon via powerprofilesctl) ────
+    property var profilesAvailable: []
+    property string activeProfile: ""
+    property string _profileListBuf: ""
+
+    function refreshProfiles() {
+        root._profileListBuf = ""
+        listProfilesProc.running = true
+    }
+
+    function profileLabel(p) {
+        switch (p) {
+            case "power-saver": return "Eco"
+            case "balanced":    return "Balanced"
+            case "performance": return "Performance"
+            default:            return p
+        }
+    }
+
+    function setProfile(p) {
+        if (p === root.activeProfile) return
+        setProfileProc.profile = p
+        setProfileProc.running = true
+    }
+
+    Process {
+        id: listProfilesProc
+        command: ["powerprofilesctl", "list"]
+        running: false
+        stdout: SplitParser {
+            splitMarker: "\n"
+            onRead: data => root._profileListBuf += data + "\n"
+        }
+        onRunningChanged: {
+            if (running) return
+            const profiles = []
+            let active = ""
+            for (const line of root._profileListBuf.split("\n")) {
+                const m = line.match(/^(\*)?\s*([a-z-]+):\s*$/)
+                if (!m) continue
+                profiles.push(m[2])
+                if (m[1]) active = m[2]
+            }
+            if (profiles.length > 0) {
+                root.profilesAvailable = profiles
+                root.activeProfile = active || profiles[0]
+            }
+        }
+    }
+
+    Process {
+        id: setProfileProc
+        property string profile: ""
+        command: ["powerprofilesctl", "set", setProfileProc.profile]
+        onRunningChanged: if (!running) root.refreshProfiles()
     }
 
     readonly property var device: UPower.displayDevice
@@ -195,6 +258,57 @@ PanelWindow {
                             color: "#cdd6f4"
                             font.pixelSize: 11
                             elide: Text.ElideRight
+                        }
+                    }
+                }
+
+                // ── Power profile ────────────────────────────────────
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+                    visible: root.profilesAvailable.length > 0
+
+                    Rectangle { Layout.fillWidth: true; height: 1; color: "#313244" }
+
+                    Text { text: "Power Profile"; color: "#6c7086"; font.pixelSize: 11 }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 6
+
+                        Repeater {
+                            model: root.profilesAvailable
+
+                            delegate: Rectangle {
+                                id: profBtn
+                                required property string modelData
+
+                                readonly property bool active: modelData === root.activeProfile
+
+                                Layout.fillWidth: true
+                                height: 32
+                                radius: 8
+                                color: profBtn.active ? "#33ccff" : (profMa.containsMouse ? "#313244" : "#1e1e2e")
+                                border.color: profBtn.active ? "#33ccff" : "#313244"
+                                border.width: 1
+                                Behavior on color { ColorAnimation { duration: 80 } }
+
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: root.profileLabel(profBtn.modelData)
+                                    color: profBtn.active ? "#11111b" : "#cdd6f4"
+                                    font.pixelSize: 11
+                                    font.bold: profBtn.active
+                                }
+
+                                MouseArea {
+                                    id: profMa
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: root.setProfile(profBtn.modelData)
+                                }
+                            }
                         }
                     }
                 }

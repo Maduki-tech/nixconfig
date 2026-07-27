@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./system/desktop.nix
+    ./system/greetd.nix
     ./system/shell.nix
     ./system/nix-ld.nix
     ./system/power.nix
@@ -81,6 +82,7 @@
 kitty
 firefox
 claude-code
+btop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

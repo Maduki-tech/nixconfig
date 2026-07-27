@@ -18,6 +18,7 @@
   # - nodejs, python3: language servers/tools mason installs (vtsls, prettier, pyright, ...)
   # - stylua, clang-tools: formatters referenced directly in conform.lua
   # - rustup: rustaceanvim runs `rustup run stable rustc --print sysroot`
+  # - go: Go toolchain (gopls/other Go tools are installed via mason)
   home.packages = with pkgs; [
     neovim
     ripgrep
@@ -31,6 +32,7 @@
     stylua
     clang-tools
     rustup
+    go
   ];
 
   # Keep the config live-editable in its own dotfiles repo rather than

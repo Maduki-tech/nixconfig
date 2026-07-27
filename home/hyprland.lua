@@ -98,6 +98,9 @@ local menu = "hyprlauncher"
 hl.on("hyprland.start", function()
 	hl.exec_cmd("quickshell")
 	hl.exec_cmd("blueman-applet")
+	-- awww-daemon (WallpaperMenu.qml) restores the last wallpaper from its
+	-- own on-disk cache on startup, no extra scripting needed here.
+	hl.exec_cmd("awww-daemon")
 end)
 
 -------------------------------
@@ -315,6 +318,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("quickshell msg launcher toggle"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("quickshell msg wallpaper toggle"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
