@@ -5,6 +5,7 @@ ShellRoot {
     property bool launcherOpen: false
     property bool btMenuOpen: false
     property bool batMenuOpen: false
+    property bool audioMenuOpen: false
     property bool netMenuOpen: false
     property bool wallpaperMenuOpen: false
     property bool screenshotActive: false
@@ -49,6 +50,7 @@ ShellRoot {
             onLauncherToggled: launcherOpen = !launcherOpen
             onBtToggled: btMenuOpen = !btMenuOpen
             onBatToggled: batMenuOpen = !batMenuOpen
+            onAudioToggled: audioMenuOpen = !audioMenuOpen
             onNetToggled: netMenuOpen = !netMenuOpen
             onWallpaperToggled: wallpaperMenuOpen = !wallpaperMenuOpen
         }
@@ -78,6 +80,11 @@ ShellRoot {
     BatteryMenu {
         visible: batMenuOpen
         onClose: batMenuOpen = false
+    }
+
+    AudioMenu {
+        visible: audioMenuOpen
+        onClose: audioMenuOpen = false
     }
 
     NetworkMenu {

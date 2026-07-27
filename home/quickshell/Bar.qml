@@ -7,6 +7,7 @@ PanelWindow {
     signal launcherToggled()
     signal btToggled()
     signal batToggled()
+    signal audioToggled()
     signal netToggled()
     signal wallpaperToggled()
 
@@ -99,7 +100,9 @@ PanelWindow {
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 
-        Audio {}
+        Audio {
+            onClicked: bar.audioToggled()
+        }
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 

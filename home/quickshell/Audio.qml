@@ -5,6 +5,7 @@ import Quickshell.Services.Pipewire
 
 Item {
     id: root
+    signal clicked()
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
@@ -40,10 +41,14 @@ Item {
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        acceptedButtons: Qt.LeftButton
-        onClicked: {
-            if (root.sink?.audio)
-                root.sink.audio.muted = !root.sink.audio.muted
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+        onClicked: event => {
+            if (event.button === Qt.MiddleButton) {
+                if (root.sink?.audio)
+                    root.sink.audio.muted = !root.sink.audio.muted
+            } else {
+                root.clicked()
+            }
         }
         onWheel: event => {
             if (root.sink?.audio) {
