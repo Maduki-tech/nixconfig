@@ -1,53 +1,49 @@
 import QtQuick
-import Quickshell.Io
+import Quickshell.Networking
 
 Item {
     id: root
+    signal clicked()
 
-    property string connType: "none"
-    property string connName: ""
-    readonly property bool connected: connType !== "none"
+    readonly property var wifiDevice: {
+        const devs = Networking.devices.values
+        for (let i = 0; i < devs.length; i++) {
+            if (devs[i].type === DeviceType.Wifi) return devs[i]
+        }
+        return null
+    }
+
+    readonly property var wiredDevice: {
+        const devs = Networking.devices.values
+        for (let i = 0; i < devs.length; i++) {
+            if (devs[i].type === DeviceType.Wired) return devs[i]
+        }
+        return null
+    }
+
+    readonly property var activeWifiNetwork: {
+        if (!root.wifiDevice) return null
+        const nets = root.wifiDevice.networks.values
+        for (let i = 0; i < nets.length; i++) {
+            if (nets[i].connected) return nets[i]
+        }
+        return null
+    }
+
+    readonly property bool wiredConnected: root.wiredDevice?.connected ?? false
+    readonly property bool wifiConnected: root.wifiDevice?.connected ?? false
+    readonly property bool connected: root.wiredConnected || root.wifiConnected
+
+    readonly property string connType: root.wiredConnected ? "ethernet"
+                                      : root.wifiConnected  ? "wifi"
+                                      :                        "none"
+
+    readonly property string connName: root.wiredConnected ? (root.wiredDevice.network?.name ?? root.wiredDevice.name)
+                                      : root.wifiConnected  ? (root.activeWifiNetwork?.name ?? "")
+                                      :                        ""
 
     implicitWidth: row.implicitWidth + 12
     implicitHeight: 28
-
-    Process {
-        id: netProc
-        command: ["sh", "-c",
-            "nmcli -t -f TYPE,STATE,CONNECTION device 2>/dev/null | grep ':connected:' | head -1"]
-        running: true
-        stdout: SplitParser {
-            splitMarker: "\n"
-            onRead: data => {
-                const line = data.trim()
-                if (line === "") {
-                    root.connType = "none"
-                    root.connName = ""
-                    return
-                }
-                const parts = line.split(":")
-                if (parts.length >= 3) {
-                    root.connType = parts[0].toLowerCase().includes("wifi") ? "wifi"
-                                  : parts[0].toLowerCase().includes("eth") ? "ethernet"
-                                  : "other"
-                    root.connName = parts.slice(2).join(":").trim()
-                }
-            }
-        }
-        onRunningChanged: {
-            if (!running) {
-                if (root.connName === "" && root.connType !== "none") root.connType = "none"
-                pollTimer.restart()
-            }
-        }
-    }
-
-    Timer {
-        id: pollTimer
-        interval: 10000
-        repeat: false
-        onTriggered: netProc.running = true
-    }
 
     Row {
         id: row
@@ -70,5 +66,11 @@ Item {
             elide: Text.ElideRight
             maximumLineCount: 1
         }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.clicked()
     }
 }

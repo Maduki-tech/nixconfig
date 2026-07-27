@@ -10,9 +10,9 @@ Item {
     readonly property bool btEnabled: adapter?.enabled ?? false
     readonly property int connectedCount: {
         let count = 0
-        const devs = Bluetooth.devices
-        for (let i = 0; i < devs.count; i++) {
-            if (devs.get(i)?.connected) count++
+        const devs = Bluetooth.devices.values
+        for (let i = 0; i < devs.length; i++) {
+            if (devs[i]?.connected) count++
         }
         return count
     }

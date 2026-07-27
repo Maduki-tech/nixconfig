@@ -4,6 +4,7 @@
   imports = [
     ./home/git.nix
     ./home/zsh.nix
+    ./home/starship.nix
     ./home/ghostty.nix
     ./home/hyprland.nix
     ./home/quickshell.nix

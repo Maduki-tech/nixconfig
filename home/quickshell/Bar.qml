@@ -7,6 +7,7 @@ PanelWindow {
     signal launcherToggled()
     signal btToggled()
     signal batToggled()
+    signal netToggled()
 
     anchors {
         top: true
@@ -101,7 +102,9 @@ PanelWindow {
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 
-        Network {}
+        Network {
+            onClicked: bar.netToggled()
+        }
 
         Rectangle { width: 1; height: 20; color: "#313244" }
 

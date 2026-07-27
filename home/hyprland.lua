@@ -85,7 +85,7 @@ end)
 
 -- Set programs that you use
 local terminal = "ghostty"
-local browser = "zen-browser"
+local browser = "zen-beta"
 local fileManager = "dolphin"
 local menu = "hyprlauncher"
 
@@ -279,6 +279,7 @@ hl.config({
 
 		touchpad = {
 			natural_scroll = true,
+			scroll_factor = 0.3,
 		},
 	},
 })

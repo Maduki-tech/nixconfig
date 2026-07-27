@@ -5,6 +5,7 @@ ShellRoot {
     property bool launcherOpen: false
     property bool btMenuOpen: false
     property bool batMenuOpen: false
+    property bool netMenuOpen: false
 
     IpcHandler {
         target: "launcher"
@@ -22,6 +23,7 @@ ShellRoot {
             onLauncherToggled: launcherOpen = !launcherOpen
             onBtToggled: btMenuOpen = !btMenuOpen
             onBatToggled: batMenuOpen = !batMenuOpen
+            onNetToggled: netMenuOpen = !netMenuOpen
         }
     }
 
@@ -38,6 +40,11 @@ ShellRoot {
     BatteryMenu {
         visible: batMenuOpen
         onClose: batMenuOpen = false
+    }
+
+    NetworkMenu {
+        visible: netMenuOpen
+        onClose: netMenuOpen = false
     }
 
     Notifications {}
