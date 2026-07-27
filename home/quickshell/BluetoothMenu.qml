@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Bluetooth
+import Quickshell.Hyprland
 import Quickshell.Wayland._WlrLayerShell
 
 PanelWindow {
@@ -18,6 +19,14 @@ PanelWindow {
     implicitWidth: 300
     implicitHeight: card.implicitHeight
     color: "transparent"
+
+    onVisibleChanged: if (visible) focusGrab.active = true
+
+    HyprlandFocusGrab {
+        id: focusGrab
+        windows: [root]
+        onCleared: root.close()
+    }
 
     readonly property var adapter: Bluetooth.defaultAdapter
 

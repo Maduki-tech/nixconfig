@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Networking
 import Quickshell.Wayland._WlrLayerShell
@@ -19,6 +20,14 @@ PanelWindow {
     implicitWidth: 320
     implicitHeight: card.implicitHeight
     color: "transparent"
+
+    onVisibleChanged: if (visible) focusGrab.active = true
+
+    HyprlandFocusGrab {
+        id: focusGrab
+        windows: [root]
+        onCleared: root.close()
+    }
 
     // ── Device / network lookup ─────────────────────────────────
     readonly property var wifiDevice: {

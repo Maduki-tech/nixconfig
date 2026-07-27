@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Services.UPower
 import Quickshell.Wayland._WlrLayerShell
 
@@ -18,6 +19,14 @@ PanelWindow {
     implicitWidth: 280
     implicitHeight: card.implicitHeight
     color: "transparent"
+
+    onVisibleChanged: if (visible) focusGrab.active = true
+
+    HyprlandFocusGrab {
+        id: focusGrab
+        windows: [root]
+        onCleared: root.close()
+    }
 
     readonly property var device: UPower.displayDevice
     readonly property bool present: device?.isPresent ?? false

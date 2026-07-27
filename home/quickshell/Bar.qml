@@ -111,9 +111,5 @@ PanelWindow {
         Bluetooth {
             onClicked: bar.btToggled()
         }
-
-        Rectangle { width: 1; height: 20; color: "#313244" }
-
-        Tray {}
     }
 }
